@@ -1,0 +1,74 @@
+@import 'variables';
+@import 'mixins';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: $bg-color;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -$gutter;
+  margin-right: -$gutter;
+
+  // Lồng selector cho tất cả class bắt đầu bằng col-
+  [class*="col-"] {
+    padding-left: $gutter;
+    padding-right: $gutter;
+    margin-bottom: 15px;
+
+    .content {
+      background-color: $col-bg;
+      color: $text-color;
+      border: 1px solid $col-border;
+      text-align: center;
+      padding: 20px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+  }
+}
+
+// Mặc định cho Mobile (100% width)
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    flex: 0 0 percentage($i / $grid-columns);
+    max-width: percentage($i / $grid-columns);
+  }
+}
+
+// Tạo class cột cho màn hình Tablet (md) bằng vòng lặp + mixin
+@include respond-to(md) {
+  @for $i from 1 through $grid-columns {
+    .col-md-#{$i} {
+      flex: 0 0 percentage($i / $grid-columns);
+      max-width: percentage($i / $grid-columns);
+    }
+  }
+}
+
+// Tạo class cột cho màn hình Desktop (lg)
+@include respond-to(lg) {
+  @for $i from 1 through $grid-columns {
+    .col-lg-#{$i} {
+      flex: 0 0 percentage($i / $grid-columns);
+      max-width: percentage($i / $grid-columns);
+    }
+  }
+}
